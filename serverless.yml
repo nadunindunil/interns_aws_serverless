@@ -53,8 +53,8 @@ functions:
     handler: handler.getUser
     events:
       - http:
-          path: getUser/{id}
-          method: get
+          path: getUser
+          method: post
 
 # you can add CloudFormation resource templates here
 #resources:

@@ -10,8 +10,8 @@ module.exports.postUser = function(event, context) {
   var params = {};
   params.TableName = "interns";
   params.Item = {
-                  "id"  : event.id,
-                  "username" : event.username
+                  "id"  : event.body.id,
+                  "username" : event.body.username
                 };
 
   var pfunc = function(err, data) {
@@ -52,24 +52,22 @@ module.exports.getUsers = function(event, context) {
 
 module.exports.getUser = function(event, context) {
 
-  //var docClient = new AWS.DynamoDB.DocumentClient();
-  var table = "interns";
-  var id = event.id;
-  console.log(id);
+  console.log(event.body.id);
   var params = {
-      TableName: table,
-      Key:{
-          "id": id,
+      "TableName": "interns",
+      "Key":{
+          "id": event.body.id,
       }
   };
+
   docClient.getItem(params, function(err, data) {
       if (err) {
           console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-          context.succeed(id);
+          context.succeed(err);
       } else {
           console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
           console.log(data);
-          context.succeed(id);
+          context.succeed(data);
           //context.succeed(JSON.stringify(data, null, 2));
       }
   });
