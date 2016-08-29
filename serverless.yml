@@ -48,7 +48,13 @@ functions:
       - http:
           path: createUser
           method: post
-
+          
+  updateUser:
+    handler: handler.updateUser
+    events:
+      - http:
+          path: updateUser
+          method: post
   getUser:
     handler: handler.getUser
     events:
