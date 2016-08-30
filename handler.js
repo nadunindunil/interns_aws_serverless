@@ -1,32 +1,38 @@
 
 var DOC = require('dynamodb-doc');
 var docClient = new DOC.DynamoDB();
-var AWS = require("aws-sdk");
+
 var table = "interns";
 
 module.exports.postUser = function(event, context) {
   console.log(JSON.stringify(event, null, ' '));
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  //var docClient = new AWS.DynamoDB.DocumentClient();
 
   var datetime = new Date().getTime().toString();
   var params = {};
   params.TableName = "interns";
   params.Item = {
+
                   "id"  : event.id,
-                  "firstname" : event.firstname ,
-                  "lastname" : event.lastname ,
+                  "username" : event.username,
+                  "firstname" : event.firstname,
                   "fullname" : event.fullname,
-                  "NIC" : event.NIC,
-                  "password" : event.password,
-                  "email" : event.email,
-                  "mobile" : event.mobile,
-                  "tel" : event.tel,
-                  "address" : event.address,
-                  "goals" : event.goals,
-                  "social" : event.social,
-                  "techs" : event.techs
+                  "lastname": event.lastname,
+                  "mobile":event.mobile,
+                  "tel":event.tel,
+                  "address":event.address,
+                  "nic":event.nic,
+                  "email":event.email,
+                  "instInfo" : event.instInfo,
+                  "intshpInfo" : event.intshpInfo,
+                  "startdate" : event.startdate,
+                  "enddate" : event.enddate,
+                  "projects" : event.projects,
+                  "lastUpdated": datetime
                 };
 
+  console.log(params.Item);
+  
   var pfunc = function(err, data) {
     if (err) {
       console.log(err, err.stack);
@@ -40,6 +46,7 @@ module.exports.postUser = function(event, context) {
 };
 ////////////////////////////////////////////////////////////////////////////////
 module.exports.updateUser = function(event, context) {
+  var AWS = require("aws-sdk");
   var docClient = new AWS.DynamoDB.DocumentClient()
 
   console.log(JSON.stringify(event, null, ' '));
