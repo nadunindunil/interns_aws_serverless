@@ -48,7 +48,7 @@ module.exports.updateUser = function(event, context) {
   var params = {
       TableName:"interns",
       Key:{"id"  : event.id},
-      UpdateExpression: "set firstname = :f, lastname= :l, fullname= :fn, nic= :nic, email= :e, mobile= :m, tel= :t, address= :a, goals= :g, social= :s, techs= :t ",
+      UpdateExpression: "set firstname = :f, lastname= :l, fullname= :fn, nic= :nic, email= :e, mobile= :m, tel= :tel, address= :a, goals= :g, social= :s, techs= :t ",
       ExpressionAttributeValues:{
           ":f" : event.firstname,
           ":l" : event.lastname,
@@ -56,7 +56,7 @@ module.exports.updateUser = function(event, context) {
           ":nic" : event.NIC,
           ":e" : event.email,
           ":m" : event.mobile,
-          ":t" : event.tel,
+          ":tel" : event.tel,
           ":a" : event.address,
           ":g" : event.goals,
           ":s" : event.social,
@@ -110,11 +110,11 @@ module.exports.getUsers = function(event, context) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports.getUser = function(event, context) {
 
-  console.log(event.body.id);
+  console.log(event.id);
   var params = {
       "TableName": "interns",
       "Key":{
-          "id": event.body.id,
+          "id": event.id,
       }
   };
 
